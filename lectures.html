@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EsPass | Лекції</title>
+
+    <link rel="icon" type="image/png" href="bg.png">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* основні змінні кольорів та тіней */
+        :root {
+            --brand-gradient: linear-gradient(135deg, #FF5F6D 0%, #FFC371 100%);
+            --soft-bg: #f8f9fa;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        body { 
+            font-family: 'verdana', sans-serif; 
+            background-color: var(--soft-bg);
+            color: #2d3436;
+            margin: 0;
+        }
+
+        /* стилі бокового меню */
+        .sidebar { 
+            background: #1a1a1a; 
+            height: 100vh; 
+            width: 260px; 
+            border-radius: 0 30px 30px 0; 
+            position: fixed; 
+            top: 0;
+            left: 0;
+            display: flex; 
+            flex-direction: column; 
+            z-index: 1000; 
+        }
+
+        .sidebar-logo {
+            width: 80px;
+            height: auto;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 5px 15px rgba(255, 95, 109, 0.2));
+        }
+        
+        .sidebar-brand-text { font-size: 1.5rem; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; display: block; }
+        
+        .nav-link { color: #a0a0a0 !important; padding: 12px 25px !important; margin: 8px 15px; border-radius: 12px; transition: 0.3s; }
+        .nav-link:hover, .nav-link.active { background: rgba(255, 255, 255, 0.05); color: #fff !important; }
+        .nav-link i { margin-right: 10px; width: 20px; text-align: center; }
+
+        /* область основного контенту*/
+        .content-area { 
+            margin-left: 260px; 
+            padding: 40px; 
+            width: calc(100% - 260px); 
+            min-height: 100vh;
+        }
+
+        /* кнопки дій у верхній панелі */
+        .header-action-btn {
+            width: 45px; height: 45px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            background: white; color: #636e72; text-decoration: none;
+            box-shadow: var(--card-shadow); margin-right: 15px; transition: all 0.3s; position: relative;
+        }
+        .header-action-btn:hover { color: #FF5F6D; transform: translateY(-2px); }
+        
+        .notification-badge {
+            position: absolute; top: 10px; right: 12px; width: 8px; height: 8px;
+            background: #FF5F6D; border-radius: 50%; border: 2px solid white;
+        }
+        .logout-btn:hover { color: #d63031 !important; }
+
+        /* картки лекцій */
+        .lesson-card {
+            background: white; border: none; border-radius: 25px; overflow: hidden;
+            box-shadow: var(--card-shadow); transition: all 0.3s ease; height: 100%; display: flex; flex-direction: column;
+        }
+        .lesson-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+
+        .lesson-image-photo { height: 180px; width: 100%; background-size: cover; background-position: center; border-radius: 25px 25px 0 0; }
+
+        .level-badge {
+            position: absolute; top: 15px; right: 15px; background: rgba(255, 255, 255, 0.9);
+            padding: 5px 12px; border-radius: 10px; font-weight: 700; font-size: 0.8rem; color: #FF5F6D; z-index: 10;
+        }
+
+        .lesson-body { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        
+        /* кнопка запуску лекці */
+        .btn-play {
+            width: 45px; height: 45px; border-radius: 15px; background: var(--brand-gradient);
+            color: white; display: flex; align-items: center; justify-content: center; border: none; transition: 0.3s;
+        }
+        .btn-play:hover { transform: scale(1.1); color: white; }
+    </style>
+</head>
+
+<body>
+    <div class="d-flex">
+        <nav class="sidebar shadow">
+            <div class="p-4 text-center">
+                <img src="bg.png" alt="Logo" class="sidebar-logo">
+                <span class="sidebar-brand-text">EsPass</span>
+            </div>
+            <ul class="nav flex-column mt-3">
+                <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-th-large"></i> Panel </a></li>
+                <li class="nav-item"><a class="nav-link active" href="lectures.html"><i class="fas fa-book-open"></i> Lecciones</a></li>
+                <li class="nav-item"><a class="nav-link" href="vocabulary.html"><i class="fas fa-spell-check"></i> Vocabulario</a></li>
+                <li class="nav-item"><a class="nav-link" href="progress.html"><i class="fas fa-trophy"></i> Logros</a></li>
+                <li class="nav-item"><a class="nav-link" href="settings.html"><i class="fas fa-cog"></i> Ajustes</a></li>
+            </ul>
+        </nav>
+
+        <div class="content-area">
+            <header class="d-flex justify-content-between align-items-center mb-5">
+                <h2 class="fw-bold m-0">Biblioteca de Lecciones</h2>
+                
+                <div class="d-flex align-items-center">
+                    <a href="#" class="header-action-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge"></span>
+                    </a>
+                    <a href="login.html" class="header-action-btn logout-btn" title="Cerrar sesión">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                    <div class="me-3 text-end">
+                        <div class="fw-bold mb-0 js-user-name">Valeria S.</div>
+                        <small class="text-muted js-user-level">Estudiante A2</small>
+                    </div>
+                    <img src="ava.jpg" class="rounded-4 shadow-sm" width="50" height="50">
+                </div>
+            </header>
+
+            <div class="mb-5">
+                <p class="text-muted">Доступні лекції для навчання</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="lesson-card position-relative">
+                        <span class="level-badge">A1</span>
+                        <div class="lesson-image-photo" style="background-image: url('1.jpg');"></div>
+                        <div class="lesson-body">
+                            <h5 class="fw-bold">Presentaciones básicas</h5>
+                            <p class="text-muted small">Aprende a saludar и presentarte en español.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="text-muted small"><i class="far fa-clock me-1"></i> 15 mín</span>
+                                <button class="btn-play"><i class="fas fa-play"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="lesson-card position-relative">
+                        <span class="level-badge">B1</span>
+                        <div class="lesson-image-photo" style="background-image: url('2.jpg');"></div>
+                        <div class="lesson-body">
+                            <h5 class="fw-bold">En el restaurante</h5>
+                            <p class="text-muted small">Vocabulario esencial para pedir comida.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="text-muted small"><i class="far fa-clock me-1"></i> 25 mín</span>
+                                <button class="btn-play"><i class="fas fa-play"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="lesson-card position-relative">
+                        <span class="level-badge">A2</span>
+                        <div class="lesson-image-photo" style="background-image: url('3.jpg');"></div>
+                        <div class="lesson-body">
+                            <h5 class="fw-bold">Viajes y Aeropuerto</h5>
+                            <p class="text-muted small">Todo lo que necesitas para travesti a España.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="text-muted small"><i class="far fa-clock me-1"></i> 20 mín.</span>
+                                <button class="btn-play"><i class="fas fa-play"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="mt-5 text-center text-muted">
+                <small> Copyright © EsPass 2026</small>
+            </footer>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

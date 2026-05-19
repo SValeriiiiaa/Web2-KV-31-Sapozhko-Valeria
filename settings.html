@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EsPass | Налаштування </title>
+    
+    <link rel="icon" type="image/png" href="bg.png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* основні змінні кольорів та тіней */
+        :root {
+            --brand-gradient: linear-gradient(135deg, #FF5F6D 0%, #FFC371 100%);
+            --soft-bg: #f8f9fa;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        body { 
+            font-family: 'verdana', sans-serif; 
+            background-color: var(--soft-bg); 
+            color: #2d3436; 
+        }
+
+        /* бокова панель */
+        .sidebar { 
+            background: #1a1a1a; 
+            min-height: 100vh; 
+            width: 260px; 
+            border-radius: 0 30px 30px 0; 
+            position: fixed; 
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+        }
+        .sidebar-brand-text { 
+            font-size: 1.5rem; 
+            background: var(--brand-gradient); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            font-weight: 800; 
+            display: block;
+        }
+        .nav-link { 
+            color: #a0a0a0 !important; 
+            padding: 12px 25px !important; 
+            margin: 8px 15px; 
+            border-radius: 12px; 
+            transition: 0.3s;
+        }
+        .nav-link:hover, .nav-link.active { 
+            background: rgba(255, 255, 255, 0.05); 
+            color: #fff !important; 
+        }
+
+        /* блок пропозиції підписки */
+        .upgrade-box { 
+            margin-top: auto; 
+            padding: 20px; 
+            text-align: center; 
+            background: rgba(255,255,255,0.03);
+            margin: 15px;
+            border-radius: 20px;
+        }
+
+        /* основна область */
+        .content-area { 
+            margin-left: 260px; 
+            padding: 40px; 
+            width: calc(100% - 260px); 
+        }
+
+        /* кнопки дій у верхній панелі */
+        .header-action-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            color: #636e72;
+            text-decoration: none;
+            box-shadow: var(--card-shadow);
+            margin-right: 15px;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .header-action-btn:hover {
+            color: #FF5F6D;
+            transform: translateY(-2px);
+        }
+        .notification-badge {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            width: 8px;
+            height: 8px;
+            background: #FF5F6D;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+        .logout-btn:hover {
+            color: #d63031 !important;
+        }
+
+        /* картки налаштувань */
+        .settings-card {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 30px;
+            border: none;
+        }
+
+        /* контейнер аватара профілю */
+        .profile-img-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+        }
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 30px;
+            object-fit: cover;
+            border: 4px solid #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .change-photo-btn {
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            background: var(--brand-gradient);
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* стилізація полів вводу та форм */
+        .form-label {
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #a0a0a0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .form-control, .form-select {
+            border-radius: 14px;
+            padding: 12px 18px;
+            border: 1px solid #f0f0f0;
+            background: #fafafa;
+            font-weight: 500;
+        }
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #FFC371;
+        }
+
+        .form-check-input:checked {
+            background-color: #FF5F6D;
+            border-color: #FF5F6D;
+        }
+
+        /* кнопка збереження змін */
+        .btn-save {
+            background: var(--brand-gradient);
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 15px;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(255, 95, 109, 0.2);
+            transition: 0.3s;
+        }
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 95, 109, 0.3);
+            color: white;
+        }
+
+
+
+        .profile-table {
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid #f0f0f0;
+        }
+        .profile-table th {
+            width: 220px;
+            color: #a0a0a0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.85rem;
+        }
+
+        /* видалення аккаунту */
+        .danger-zone {
+            border: 1px dashed #ff7675;
+            background: #fffafa;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="d-flex">
+        <nav class="sidebar shadow">
+            <div class="p-4 text-center">
+                <div class="mb-2">
+                    <img src="bg.png" alt="EsPass Logo" style="max-width: 90px; height: auto;">
+                </div>
+                <span class="sidebar-brand-text">EsPass</span>
+            </div>
+            <ul class="nav flex-column mt-3">
+                <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-th-large"></i> Panel </a></li>
+                <li class="nav-item"><a class="nav-link" href="lectures.html"><i class="fas fa-book-open"></i> Lecciones</a></li>
+                <li class="nav-item"><a class="nav-link" href="vocabulary.html"><i class="fas fa-spell-check"></i> Vocabulario</a></li>
+                <li class="nav-item"><a class="nav-link" href="progress.html"><i class="fas fa-trophy"></i> Logros</a></li>
+                <li class="nav-item"><a class="nav-link active" href="settings.html"><i class="fas fa-cog"></i> Ajustes</a></li>
+            </ul>
+
+            <div class="upgrade-box">
+                <p class="text-white-50 small mb-3">Необмежений доступ</p>
+                <a href="price.html" class="btn w-100" style="background: var(--brand-gradient); color: white; border-radius: 15px; font-weight: 600; text-decoration: none;">
+                    Отримати
+                </a>
+            </div>
+        </nav>
+
+        <div class="content-area">
+            <header class="d-flex justify-content-between align-items-center mb-5">
+                <div>
+                    <h2 class="fw-bold m-0">Ajustes</h2>
+                    <p class="text-muted">Керуйте своїм профілем та налаштуваннями</p>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <a href="#" class="header-action-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge"></span>
+                    </a>
+
+                    <a href="login.html" class="header-action-btn logout-btn" title="Cerrar sesión">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+
+                    <div class="text-end me-3">
+                        <div class="fw-bold mb-0 js-user-name">Valeria S.</div>
+                        <small class="text-muted js-user-level">Estudiante A2</small>
+                    </div>
+                    <img src="ava.jpg" class="rounded-4 shadow-sm" width="50" height="50">
+                </div>
+            </header>
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="settings-card">
+                        <h5 class="fw-bold mb-4">Mi Perfil</h5>
+                        
+                        <div class="profile-img-container">
+                            <img src="ava.jpg" alt="Profile" class="profile-img">
+                            <button class="change-photo-btn"><i class="fas fa-camera"></i></button>
+                        </div>
+
+                        <form class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Nombre</label>
+                                <input type="text" id="profileName" class="form-control" value="Valeria Sapozhko">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Email</label>
+                                <input type="email" id="profileEmail" class="form-control" value="email@example.com">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Стать</label>
+                                <select id="profileGender" class="form-select">
+                                    <option value="Жіноча">Жіноча</option>
+                                    <option value="Чоловіча">Чоловіча</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Дата народження</label>
+                                <input type="date" id="profileBirthDate" class="form-control">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Biografía</label>
+                                <textarea id="profileBio" class="form-control" rows="3">hola! вивчаю іспанську для подорожей!</textarea>
+                            </div>
+                            <div class="col-12 mt-4">
+                                <button type="button" id="saveProfileBtn" class="btn btn-save">Guardar cambios</button>
+                            </div>
+                        </form>
+
+                        <div class="mt-4">
+                            <h6 class="fw-bold mb-3">Профіль користувача</h6>
+                            <table class="table profile-table mb-0">
+                                <tbody id="profileTableBody">
+                                    <tr><th>Ім’я</th><td>Valeria Sapozhko</td></tr>
+                                    <tr><th>Email</th><td>email@example.com</td></tr>
+                                    <tr><th>Стать</th><td>Жіноча</td></tr>
+                                    <tr><th>Дата народження</th><td>2004-05-12</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="settings-card">
+                        <h5 class="fw-bold mb-4">Preferencias de Estudio</h5>
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Idioma de la interfaz</label>
+                                <select class="form-select">
+                                    <option>Ucranio (Українська)</option>
+                                    <option selected>Español</option>
+                                    <option>Inglés (Англійська)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Nivel actual</label>
+                                <select id="profileLevel" class="form-select">
+                                    <option>Nivel Inicial (A1)</option>
+                                    <option>Elemental (А2)</option>
+                                    <option>Intermedio (В1)</option>
+                                    <option>Intermedio Superior (В2)</option>
+                                    <option>Dominio Operativo Eficaz (С1)</option>
+                                    <option>Superior (С2)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="settings-card">
+                        <h5 class="fw-bold mb-4">Privacidad</h5>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="publicProfile" checked>
+                            <label class="form-check-label ms-2 fw-semibold" for="publicProfile">Perfil público</label>
+                        </div>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="reminders" checked>
+                            <label class="form-check-label ms-2 fw-semibold" for="reminders">Recordatorios diarios</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="emailNews">
+                            <label class="form-check-label ms-2 fw-semibold" for="emailNews">Noticias por email</label>
+                        </div>
+                    </div>
+
+                    <div class="settings-card danger-zone">
+                        <h5 class="fw-bold text-danger mb-3">Zona de peligro</h5>
+                        <p class="text-muted small mb-4">Una vez que elimines tu cuenta, no podrás recuperar tus datos.</p>
+                        <button class="btn btn-outline-danger btn-sm w-100 py-2" style="border-radius: 10px;">Eliminar mi cuenta</button>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="mt-5 text-center text-muted">
+                <small>Copyright © EsPass  2026</small>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

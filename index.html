@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EsPass | Панель </title>
+
+    <link rel="icon" type="image/png" href="bg.png">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* основні змінні кольорів та тіней */
+        :root {
+            --brand-gradient: linear-gradient(135deg, #FF5F6D 0%, #FFC371 100%);
+            --soft-bg: #f8f9fa;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        body { 
+            font-family: 'verdana', sans-serif; 
+            background-color: var(--soft-bg);
+            color: #2d3436;
+        }
+
+        /* стилі бокового меню  */
+        .sidebar { background: #1a1a1a; min-height: 100vh; width: 320px; border-radius: 0 30px 30px 0; transition: all 0.3s; display: flex; flex-direction: column; }
+        
+        .sidebar-logo {
+            width: 80px;
+            height: auto;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 5px 15px rgba(255, 95, 109, 0.2));
+        }
+
+        .sidebar-brand-text { font-size: 1.5rem; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; display: block; }
+        .nav-link { color: #a0a0a0 !important; padding: 12px 25px !important; margin: 8px 15px; border-radius: 12px; font-weight: 500; }
+        .nav-link:hover, .nav-link.active { background: rgba(255, 255, 255, 0.05); color: #fff !important; }
+        .nav-link i { margin-right: 10px; width: 20px; text-align: center; }
+
+        /* основна робоча область */
+        .content-area { padding: 30px; width: 100%; }
+        .stat-card { background: white; border: none; border-radius: 20px; padding: 20px; box-shadow: var(--card-shadow); transition: transform 0.3s ease; }
+        .stat-card:hover { transform: translateY(-5px); }
+        .icon-box { width: 45px; height: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: var(--soft-bg); margin-bottom: 15px; }
+
+        /* прогрес та список справ */
+        .custom-progress-container { background: white; border-radius: 24px; padding: 30px; box-shadow: var(--card-shadow); }
+        .progress { height: 10px; border-radius: 20px; background: #eee; overflow: visible; }
+        .progress-bar { border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+
+        .todo-item { border-left: 4px solid #FFC371; background: #fff; padding: 12px 15px; border-radius: 12px; margin-bottom: 10px; transition: 0.3s; border: 1px solid #f8f9fa; }
+        .todo-item:hover { transform: scale(1.02); }
+        .form-check-input:checked + span { text-decoration: line-through; color: #a0a0a0; }
+
+        /* юлок заклику до оновлення */
+        .upgrade-box { 
+            padding: 20px; 
+            text-align: center; 
+            background: rgba(255,255,255,0.03);
+            margin: 15px;
+            border-radius: 20px;
+            margin-top: auto; 
+        }
+
+        /* кнопки у верхній частині  */
+        .header-action-btn {
+            width: 45px; height: 45px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            background: white; color: #636e72; text-decoration: none;
+            box-shadow: var(--card-shadow); margin-right: 15px; transition: all 0.3s; position: relative;
+        }
+        .header-action-btn:hover { color: #FF5F6D; transform: scale(1.05); }
+        .notification-badge {
+            position: absolute; top: 10px; right: 12px; width: 8px; height: 8px;
+            background: #FF5F6D; border-radius: 50%; border: 2px solid white;
+        }
+        .logout-btn:hover { color: #d63031 !important; }
+    </style>
+</head>
+
+
+<body>
+    <div class="d-flex">
+        <nav class="sidebar d-none d-md-block shadow">
+            <div class="p-4 text-center">
+                <img src="bg.png" alt="Logo" class="sidebar-logo">
+                <span class="sidebar-brand-text">EsPass</span>
+            </div>
+            
+            <ul class="nav flex-column mt-2">
+                <li class="nav-item"><a class="nav-link active" href="index.html"><i class="fas fa-th-large"></i> Panel </a></li>
+                <li class="nav-item"><a class="nav-link" href="lectures.html"><i class="fas fa-book-open"></i> Lecciones </a></li>
+                <li class="nav-item"><a class="nav-link" href="vocabulary.html"><i class="fas fa-spell-check"></i> Vocabulario </a></li>
+                <li class="nav-item"><a class="nav-link" href="progress.html"><i class="fas fa-trophy"></i> Logros </a></li>
+                <li class="nav-item"><a class="nav-link" href="settings.html"><i class="fas fa-cog"></i> Ajustes </a></li>
+            </ul>
+
+            <div class="upgrade-box">
+                <p class="text-white-50 small mb-3">Необмежений доступ</p>
+                <a href="price.html" class="btn w-100" style="background: var(--brand-gradient); color: white; border-radius: 15px; font-weight: 600;">
+                    Отримати
+                </a>
+            </div>
+        </nav>
+
+        <div class="content-area">
+            <header class="d-flex justify-content-between align-items-center mb-5">
+                <div class="search-wrapper bg-white rounded-4 px-3 py-2 shadow-sm d-flex align-items-center border">
+                    <i class="fas fa-search text-muted me-2"></i>
+                    <input type="text" placeholder="Buscar palabras..." class="border-0" style="outline: none; width: 250px;">
+                </div>
+                
+                <div class="d-flex align-items-center">
+                    <a href="#" class="header-action-btn"><i class="fas fa-bell"></i><span class="notification-badge"></span></a>
+                    <a href="login.html" class="header-action-btn logout-btn" title="Cerrar sesión"><i class="fas fa-sign-out-alt"></i></a>
+
+                    <div class="text-end me-3">
+                        <div class="fw-bold mb-0 js-user-name">Valeria S.</div>
+                        <small class="text-muted js-user-level">Estudiante A2</small>
+                    </div>
+                    <img src="ava.jpg" class="rounded-4 shadow-sm" width="50" height="50">
+                </div>
+            </header>
+
+            <div class="mb-5">
+                <h2 class="fw-bold">¡Hola! 👋</h2>
+                <p class="text-muted">Твій прогрес у іспанській мові</p>
+            </div>
+
+            <div class="row g-4 mb-5">
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="icon-box text-danger" style="background: #fff5f5;"><i class="fas fa-calendar-day"></i></div>
+                        <div class="text-muted small">Fecha de hoy</div>
+                        <div class="h5 fw-bold">12 de marzo</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="icon-box text-warning" style="background: #fff9f0;"><i class="fas fa-clock"></i></div>
+                        <div class="text-muted small">Tiempo total</div>
+                        <div class="h5 fw-bold">2.5 horas</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="icon-box text-success" style="background: #f0fff4;"><i class="fas fa-tasks"></i></div>
+                        <div class="text-muted small">Tareas hoy</div>
+                        <div class="h5 fw-bold">12 completadas</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="icon-box text-primary" style="background: #f0f7ff;"><i class="fas fa-font"></i></div>
+                        <div class="text-muted small">Nuevas palabras</div>
+                        <div class="h5 fw-bold">78 palabras</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="custom-progress-container">
+                <div class="row">
+                    <div class="col-md-7 border-end pe-md-5">
+                        <h5 class="fw-bold mb-4">Habilidades clave</h5>
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-2"><span class="fw-bold">Lectura</span><span class="text-muted">20%</span></div>
+                            <div class="progress"><div class="progress-bar" style="width: 20%; background: #FF5F6D;"></div></div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-2"><span class="fw-bold">Hablar</span><span class="text-muted">45%</span></div>
+                            <div class="progress"><div class="progress-bar" style="width: 45%; background: #FFC371;"></div></div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-2"><span class="fw-bold">Audición</span><span class="text-muted">65%</span></div>
+                            <div class="progress"><div class="progress-bar" style="width: 65%; background: #4facfe;"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 ps-md-5 mt-4 mt-md-0">
+                        <h5 class="fw-bold mb-4">Tareas de hoy</h5>
+                        <div class="todo-item d-flex align-items-center">
+                            <input class="form-check-input me-3" type="checkbox">
+                            <span>Repasar verbos irregulares</span>
+                        </div>
+                        <div class="todo-item d-flex align-items-center">
+                            <input class="form-check-input me-3" type="checkbox">
+                            <span>Completar lección de "Cultura"</span>
+                        </div>
+                        <div class="todo-item d-flex align-items-center">
+                            <input class="form-check-input me-3" type="checkbox">
+                            <span>Escribir 5 frases nuevas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="mt-5 text-center text-muted">
+                <small>Copyright © EsPass 2026</small>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>
